@@ -60,6 +60,7 @@ import javax.swing.JDialog;
  * Version V1.5     	2018 	   Startzeit in Datei Speicher
  * Version V1.6     	2019       Restzeit bis zum Alarm anzeigen
  * Version V1.7     	25.06.2020 Datum + Multiscreen + 150% Skalierung wegen windows10
+ * Version V1.8     	31.05.2021 Wochentag in Datumsanzeige und redesign Start und Endzeit
  */
 public class Uhr extends JDialog {
 

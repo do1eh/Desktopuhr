@@ -9,7 +9,7 @@ Uhr zur Restzeitanzeige eines Arbeitstages. Beim ersten Start am Tag wird eine D
  * Verison V1.2		09.07.2009 Standardalarme
  * Version V1.3		21.05.2013 Feierabend countdown
  * Version V1.4		29.07.2015 Feierabend als Alarm, Erweiterung und Überarbeitung Standardalarme
- * Version V1.5     	2018 	   Startzeit in Datei Speicher
- * Version V1.6     	2019       Restzeit bis zum Alarm anzeigen
- * Version V1.7     	25.06.2020 Datum + Multiscreen + 150% Skalierung wegen windows10
- * Version V1.8     	31.05.2021 Wochentag in Datumsanzeige und redesign Start und Endzeit
+ * Version V1.5     	  2018 Startzeit in Datei speichern
+ * Version V1.6     	  2019 Restzeit bis zum Alarm anzeigen
+ * Version V1.7   25.06.2020 Datum + Multiscreen + 150% Skalierung wegen Windows 10
+ * Version V1.8   31.05.2021 Wochentag in Datumsanzeige und redesign Start und Endzeit

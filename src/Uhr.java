@@ -130,6 +130,15 @@ public class Uhr extends JDialog {
 		alarmminute[2] = endzeit.get(GregorianCalendar.MINUTE);
 		alarmmessage[2] = "Feierabend !";
 		
+		alarmhour[3]=6;
+   	        alarmminute[3]=35;
+                alarmmessage[3]="Nils wecken !";
+                
+		alarmhour[4]=6;
+   	        alarmminute[4]=45;
+                alarmmessage[4]="Moritz wecken !";
+		
+		
 		// Releasebesprechung
 //		 if (wochentag==GregorianCalendar.MONDAY)
 //		 {

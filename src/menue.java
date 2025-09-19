@@ -7,10 +7,12 @@ import javax.swing.JDialog;
  */
 public class menue extends JDialog
 {
-	private javax.swing.JLabel jLabel = null;
+        private javax.swing.JPanel jPanel1 = null;
+        private javax.swing.JLabel jLabel = null;
 	private javax.swing.JButton jButton = null;
 	private javax.swing.JButton jButton1 = null;
 	private javax.swing.JButton jButton3 = null;
+	private javax.swing.JButton jButton4 = null;
 	private int x,y;
 	private Uhr uhr;
 	/**
@@ -38,8 +40,10 @@ public class menue extends JDialog
 		this.getContentPane().add(getJLabel(), java.awt.BorderLayout.NORTH);
 		this.getContentPane().add(getJButton(), java.awt.BorderLayout.WEST);
 		this.getContentPane().add(getJButton1(), java.awt.BorderLayout.EAST);
-		this.getContentPane().add(getJButton3(), java.awt.BorderLayout.SOUTH);
-		this.setSize(131, 61);
+		this.getContentPane().add(getJPanel1(), java.awt.BorderLayout.SOUTH);
+		
+		
+		this.setSize(131, 91);
 	}
 	/**
 	 * This method initializes jLabel
@@ -108,7 +112,40 @@ public class menue extends JDialog
 			return jButton3;
 		}
 	
+		/**
+		 * This method initializes jButton4
+		 * 
+		 * @return javax.swing.JButton
+		 */
+		private javax.swing.JButton getJButton4() {
+			if(jButton4 == null) {
+				jButton4 = new javax.swing.JButton();
+				jButton4.setText("Set Start Time");
+				jButton4.addActionListener(new java.awt.event.ActionListener() { 
+					public void actionPerformed(java.awt.event.ActionEvent e) {    
+						setStarttime();
+						disposeme();}
+				});
+			}
+			return jButton4;
+		}
 
+		/**
+		 * This method initializes jPanel1
+		 * 
+		 * @return javax.swing.JPanel
+		 */
+		private javax.swing.JPanel getJPanel1() {
+			if(jPanel1 == null) {
+				jPanel1 = new javax.swing.JPanel();
+				jPanel1.setLayout(new java.awt.BorderLayout());
+	
+				jPanel1.add(getJButton4(), java.awt.BorderLayout.NORTH);
+				jPanel1.add(getJButton3(), java.awt.BorderLayout.SOUTH);
+			}
+			return jPanel1;
+		}
+		
 private void disposeme()
 {
 	this.dispose();
@@ -118,6 +155,12 @@ private void setAlarm()
 {
 	SetAlarm alarm = new SetAlarm(x,y, uhr);
 	alarm.setVisible(true); 
+}
+
+private void setStarttime()
+{
+	SetStarttime starttime = new SetStarttime(x,y, uhr);
+	starttime.setVisible(true); 
 }
 
 

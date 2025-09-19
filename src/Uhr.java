@@ -86,7 +86,10 @@ public class Uhr extends JDialog {
 	// Alarm
 
 	private int[] alarmhour = new int[5];
-	private int[] alarmminute = new int[5];;
+	private int[] alarmminute = new int[5];
+	private int starthour = 0;
+	private int startminute = 0;
+	
 	private boolean alarm = false;
 	private String[] alarmmessage = new String[5];;
 
@@ -101,7 +104,12 @@ public class Uhr extends JDialog {
 
 		//startzeit holen
 		startzeit=initStartzeit();
+		starthour=startzeit.get(GregorianCalendar.HOUR_OF_DAY);
+		startminute=startzeit.get(GregorianCalendar.MINUTE);
+		
 		endzeit=initStartzeit();
+		
+		
 		
 		// Zeitzone setzen
 		jetzt.setTimeZone(TimeZone.getTimeZone("ECT"));
@@ -121,7 +129,7 @@ public class Uhr extends JDialog {
 		alarmhour[1] = 12;
 		alarmminute[1] = 00;
 		alarmmessage[1] = "Mittagspause !";
-
+                
 	
 
 		endzeit.add(GregorianCalendar.MINUTE, SOLLMINUTEN);
@@ -578,6 +586,32 @@ public class Uhr extends JDialog {
 		menue menu = new menue(x + 40, y + 80, this);
 		menu.show();
 	}
+	
+	
+
+	
+
+	public int getStarthour()
+	{
+	    return starthour;
+	}
+
+	public void setStarthour(int starthour)
+	{
+	    this.starthour = starthour;
+	    startzeit.set(GregorianCalendar.HOUR_OF_DAY,starthour);
+	}
+
+	public int getStartminute()
+	{
+	    return startminute;
+	}
+
+	public void setStartminute(int startminute)
+	{
+	    this.startminute = startminute;
+	    startzeit.set(GregorianCalendar.MINUTE,startminute);
+	}
 
 	/**
 	 * @param b
@@ -756,6 +790,18 @@ public class Uhr extends JDialog {
 		return startzeit;
 
 	}
+	
+	
+	public void updateEndzeit()
+	{
+	    endzeit.set(GregorianCalendar.HOUR_OF_DAY, starthour);
+	    endzeit.set(GregorianCalendar.MINUTE, startminute);
+	    endzeit.add(GregorianCalendar.MINUTE, SOLLMINUTEN);
+		// Feierabend
+		alarmhour[2] = endzeit.get(GregorianCalendar.HOUR_OF_DAY)+1;
+		alarmminute[2] = endzeit.get(GregorianCalendar.MINUTE);
+	}
+	
 	
 	public static GregorianCalendar toDate(String datum, String format) {
 		Date date = null;

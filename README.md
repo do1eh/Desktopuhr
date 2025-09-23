@@ -13,3 +13,4 @@ Uhr zur Restzeitanzeige eines Arbeitstages. Beim ersten Start am Tag wird eine D
  * Version V1.6     	  2019 Restzeit bis zum Alarm anzeigen
  * Version V1.7   25.06.2020 Datum + Multiscreen + 150% Skalierung wegen Windows 10
  * Version V1.8   31.05.2021 Wochentag in Datumsanzeige und redesign Start und Endzeit
+ * Version V1.9   20.09.2025 Die Startuhrzeit kann manuell eingestellt werden.

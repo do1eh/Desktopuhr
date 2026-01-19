@@ -62,6 +62,7 @@ import javax.swing.JDialog;
  * Version V1.7     	25.06.2020 Datum + Multiscreen + 150% Skalierung wegen windows10
  * Version V1.8     	31.05.2021 Wochentag in Datumsanzeige und redesign Start und Endzeit
  * Version V1.9         20.09.2025 Die Startuhrzeit kann manuell eingestellt werden.
+ * Version V1.10        19.01.2026 Wenn das Programm vor 6:45 startet Startuhrzeit auf 6:45Uhr
  */
 public class Uhr extends JDialog {
 
@@ -139,14 +140,17 @@ public class Uhr extends JDialog {
 		alarmminute[2] = endzeit.get(GregorianCalendar.MINUTE);
 		alarmmessage[2] = "Feierabend !";
 		
-		alarmhour[3]=6;
-   	        alarmminute[3]=35;
-                alarmmessage[3]="Nils wecken !";
                 
-		alarmhour[4]=6;
-   	        alarmminute[4]=45;
-                alarmmessage[4]="Moritz wecken !";
-		
+		alarmhour[3]=6;
+   	        alarmminute[3]=44;
+                alarmmessage[3]="Check in !";
+                
+                if (wochentag==GregorianCalendar.WEDNESDAY || wochentag==GregorianCalendar.FRIDAY)
+  		{
+                alarmhour[4]=14;
+                alarmminute[4]=55;
+                alarmmessage[4]="LOS !";
+  		}
 		
 		// Releasebesprechung
 //		 if (wochentag==GregorianCalendar.MONDAY)
@@ -718,10 +722,15 @@ public class Uhr extends JDialog {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
 			String jetztstring = sdf.format(new Date());
 			
+			//wenn die Zeit vor 6:45 ist, setze die zeit auf 6:45
+			GregorianCalendar cal=new GregorianCalendar();
+			if (cal.get(Calendar.HOUR_OF_DAY)<=6 && cal.get(Calendar.MINUTE)<45) {
+			    jetztstring=jetztstring.substring(0,11)+"06:45:00";
+			}
 			
 			if((line = br.readLine()) != null)
 			{
-				//Wenn das Dtaum heute ist, setze startzeit auf den Wert in der Datei
+				//Wenn das Dataum heute ist, setze startzeit auf den Wert in der Datei
 				if(line.startsWith(jetztstring.substring(0,10)))
 				{
 				   startzeit=toDate(line, "");  

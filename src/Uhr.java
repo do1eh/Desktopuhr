@@ -717,16 +717,17 @@ public class Uhr extends JDialog {
 	    GregorianCalendar startzeit=new GregorianCalendar();
 	    BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader(new File("c:/temp/startzeit.txt")));
-			String line = null;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
-			String jetztstring = sdf.format(new Date());
-			
-			//wenn die Zeit vor 6:45 ist, setze die zeit auf 6:45
-			GregorianCalendar cal=new GregorianCalendar();
-			if (cal.get(Calendar.HOUR_OF_DAY)<=6 && cal.get(Calendar.MINUTE)<45) {
-			    jetztstring=jetztstring.substring(0,11)+"06:45:00";
-			}
+		    //wenn die Zeit vor 6:45 ist, setze die zeit auf 6:45
+		    if (startzeit.get(Calendar.HOUR_OF_DAY)<=6 && startzeit.get(Calendar.MINUTE)<45) {
+			startzeit.set(Calendar.HOUR_OF_DAY,6);
+			startzeit.set(Calendar.MINUTE,45);
+			startzeit.set(Calendar.SECOND,0);
+		    }			
+		    br = new BufferedReader(new FileReader(new File("c:/temp/startzeit.txt")));
+		    String line = null;
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
+		    //String jetztstring = sdf.format(new Date());
+		    String jetztstring = sdf.format(startzeit.getTime()); 	
 			
 			if((line = br.readLine()) != null)
 			{
@@ -798,6 +799,49 @@ public class Uhr extends JDialog {
 
 	    
 		return startzeit;
+
+	}
+	
+	public void saveStartzeit()
+	{
+	   
+	    
+	    BufferedReader br = null;
+		try {
+		    startzeit.set(Calendar.HOUR_OF_DAY, getStarthour());
+		    startzeit.set(Calendar.MINUTE, getStartminute());
+		    br = new BufferedReader(new FileReader(new File("c:/temp/startzeit.txt")));
+		    String line = null;
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
+		    //String jetztstring = sdf.format(new Date());
+		    String jetztstring = sdf.format(startzeit.getTime()); 	
+			
+		    
+			if((line = br.readLine()) != null)
+			{
+				
+				    
+				    PrintWriter pWriter = null;
+				        try {
+				            pWriter = new PrintWriter(new BufferedWriter(new FileWriter("c:/temp/startzeit.txt")));
+				            pWriter.println(jetztstring);
+				        } catch (IOException ioe) {
+				            ioe.printStackTrace();
+				        } finally {
+				            if (pWriter != null){
+				                pWriter.flush();
+				                pWriter.close();
+				            }
+				        }  
+				}
+		}
+		catch (Exception e) {
+		    // TODO: handle exception
+		    e.printStackTrace();
+		}
+
+	    
+		
 
 	}
 	

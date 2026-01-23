@@ -177,7 +177,8 @@ private void setStart()
 	uhr.setStartminute(startminute.intValue());
 	uhr.updateEndzeit();
 	uhr.setShown(0); 
-	
+
+	uhr.saveStartzeit();
 	this.dispose();
 }
 	

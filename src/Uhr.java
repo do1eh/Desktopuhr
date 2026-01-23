@@ -63,6 +63,7 @@ import javax.swing.JDialog;
  * Version V1.8     	31.05.2021 Wochentag in Datumsanzeige und redesign Start und Endzeit
  * Version V1.9         20.09.2025 Die Startuhrzeit kann manuell eingestellt werden.
  * Version V1.10        19.01.2026 Wenn das Programm vor 6:45 startet Startuhrzeit auf 6:45Uhr
+ * Version V1.11        23.01.2026 geänderte Startzeit speichern
  */
 public class Uhr extends JDialog {
 

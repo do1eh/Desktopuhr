@@ -89,8 +89,8 @@ public class Uhr extends JDialog {
 
 	// Alarm
 
-	private int[] alarmhour = new int[5];
-	private int[] alarmminute = new int[5];
+	private int[] alarmhour = new int[6];
+	private int[] alarmminute = new int[6];
 	private int starthour = 0;
 	private int startminute = 0;
 	private boolean homeoffice=false;
@@ -161,9 +161,9 @@ public class Uhr extends JDialog {
                 
                 if (homeoffice)
   		{
-                alarmhour[4]=11;
-                alarmminute[4]=40;
-                alarmmessage[4]="Tanken";
+                alarmhour[5]=11;
+                alarmminute[5]=40;
+                alarmmessage[5]="Tanken";
   		}
 		
 		// Releasebesprechung
@@ -742,7 +742,7 @@ public class Uhr extends JDialog {
 	    GregorianCalendar startzeit=new GregorianCalendar();
 	    BufferedReader br = null;
 		try {
-		    //wenn die Zeit vor 6:45 ist, setze die zeit auf 6:45
+		    //wenn die Zeit vor 6:45 ist, setze die zeit auf 6:45 - Das ist dann aich ein Homeoffice Tag.
 		    if (startzeit.get(Calendar.HOUR_OF_DAY)<=6 && startzeit.get(Calendar.MINUTE)<45) {
 			startzeit.set(Calendar.HOUR_OF_DAY,6);
 			startzeit.set(Calendar.MINUTE,45);

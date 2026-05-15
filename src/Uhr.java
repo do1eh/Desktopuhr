@@ -64,6 +64,7 @@ import javax.swing.JDialog;
  * Version V1.9         20.09.2025 Die Startuhrzeit kann manuell eingestellt werden.
  * Version V1.10        19.01.2026 Wenn das Programm vor 6:45 startet Startuhrzeit auf 6:45Uhr
  * Version V1.11        23.01.2026 geänderte Startzeit speichern
+ * Version V1.12        25.05.2026 12 Uhr Tankgesetz: An Homeofficetagen um 11:40 tanken
  */
 public class Uhr extends JDialog {
 
@@ -92,9 +93,10 @@ public class Uhr extends JDialog {
 	private int[] alarmminute = new int[5];
 	private int starthour = 0;
 	private int startminute = 0;
+	private boolean homeoffice=false;
 	
 	private boolean alarm = false;
-	private String[] alarmmessage = new String[5];;
+	private String[] alarmmessage = new String[6];;
 
 	private GregorianCalendar startzeit;
 	private String datum;
@@ -126,7 +128,7 @@ public class Uhr extends JDialog {
 		alarmminute[0] = 00;
 		alarmmessage[0] = " ";
 
-		// Standardalarme setzen (max 4 möglich)
+		// Standardalarme setzen (max 5 möglich)
 		// Mittagspause
 
 		alarmhour[1] = 12;
@@ -146,11 +148,22 @@ public class Uhr extends JDialog {
    	        alarmminute[3]=44;
                 alarmmessage[3]="Check in !";
                 
-                if (wochentag==GregorianCalendar.WEDNESDAY || wochentag==GregorianCalendar.FRIDAY)
+                if (homeoffice && (wochentag==GregorianCalendar.WEDNESDAY || wochentag==GregorianCalendar.FRIDAY))
   		{
                 alarmhour[4]=14;
                 alarmminute[4]=55;
                 alarmmessage[4]="LOS !";
+  		} else {
+  		  alarmhour[4]=00;
+                  alarmminute[4]=00;
+                  alarmmessage[4]=" ";
+  		}
+                
+                if (homeoffice)
+  		{
+                alarmhour[4]=11;
+                alarmminute[4]=40;
+                alarmmessage[4]="Tanken";
   		}
 		
 		// Releasebesprechung
@@ -412,6 +425,17 @@ public class Uhr extends JDialog {
 			g2d.drawArc(2, 6, 30, 30, 30, -60);
 
 		}
+		
+		if (homeoffice) {
+		    GradientPaint gradienthomeoffice = new GradientPaint(00, 00,
+				Color.LIGHT_GRAY, 40, 40, Color.GRAY);
+		    g2d.setPaint(gradienthomeoffice);
+			g2d.fill(new RoundRectangle2D.Double(78, 181, 40, 15,15,15));
+			g2d.setColor(Color.WHITE);
+			g2d.drawString("MA", 90, 194);
+
+		}
+		
 
 		// Zeiger (Stunde,minute,sekunde)
 		GradientPaint gradient = new GradientPaint(35, 65, Color.white, 155,
@@ -723,6 +747,7 @@ public class Uhr extends JDialog {
 			startzeit.set(Calendar.HOUR_OF_DAY,6);
 			startzeit.set(Calendar.MINUTE,45);
 			startzeit.set(Calendar.SECOND,0);
+			homeoffice=true;
 		    }			
 		    br = new BufferedReader(new FileReader(new File("c:/temp/startzeit.txt")));
 		    String line = null;
@@ -732,10 +757,11 @@ public class Uhr extends JDialog {
 			
 			if((line = br.readLine()) != null)
 			{
-				//Wenn das Dataum heute ist, setze startzeit auf den Wert in der Datei
+				//Wenn das Datum heute ist, setze startzeit auf den Wert in der Datei
 				if(line.startsWith(jetztstring.substring(0,10)))
 				{
-				   startzeit=toDate(line, "");  
+				   startzeit=toDate(line, "");
+				   if (startzeit.get(Calendar.HOUR_OF_DAY)==6 && startzeit.get(Calendar.MINUTE)==45) {homeoffice=true;}
 				}
 				//ansonsten überschreibe die Datei mit aktuellem wert
 				else
